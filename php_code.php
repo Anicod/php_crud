@@ -19,10 +19,15 @@ if (isset($_POST['save'])) {
 if (isset($_POST['update'])) {
 	$id = $_POST['id'];
 	$name = $_POST['name'];
-	$address = $_POST['address'];
-
+	$address = $_POST['address']; 
 	mysqli_query($db, "UPDATE info SET name='$name', address='$address' WHERE id=$id");
 	$_SESSION['message'] = "Address updated!"; 
+	header('location: index.php');
+}
+if (isset($_GET['del'])) {
+	$id = $_GET['del'];
+	mysqli_query($db, "DELETE FROM info WHERE id=$id");
+	$_SESSION['message'] = "Address deleted!"; 
 	header('location: index.php');
 }
 ?>
