@@ -10,7 +10,7 @@
             background-color:grey;
             font-size:25px;
             font-weight:bold;
-           width:30%;
+           width:40%;
         }
         input{
             width:300px;
@@ -27,9 +27,17 @@
             font-size:30px;
             padding: 5px;
             font-weight:bold;
+            cursor: pointer;
         }
         .del{
             color:red;
+        }
+        .btndel{
+            width:85px;
+            background-color:red;
+            font-size:25px;
+            font-weight:bold;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -53,6 +61,8 @@
 		<tr>
 			<th>Name</th>
 			<th>Address</th>
+            <th>Salary</th>
+            <th>Age</th>
 			<th colspan="2">Action</th>
 		</tr>
 	</thead>
@@ -60,11 +70,13 @@
         <tr>
             <td><?php echo $row['name'] ;?></td>
             <td><?php echo $row['address']; ?></td>
+            <td><?php echo $row['salary']; ?></td>
+            <td><?php echo $row['age']; ?></td>
             <td>
-				<a href="index.php?edit=<?php echo $row['id']; ?>">Edit</a>
+				<a href="index.php?edit=<?php echo $row['id']; ?>"><button class="act">Edit</button></a>
 			</td>
             <td>
-				<a href="index.php?del=<?php echo $row['id']; ?>" class="del">Delete</a>
+				<a href="index.php?del=<?php echo $row['id']; ?>" class="del"><button class="btndel">Delete</button></a>
 			</td>
         </tr>
     <?php } ?>
@@ -81,7 +93,14 @@
              <label>address</label>
              <input type="text" name = "address" value = "<?php echo $address;?> "><br>
        </div><br>
-
+       <div>
+             <label>Salary</label>
+             <input type="text" name = "salary" value = ""><br>
+       </div><br>
+       <div>
+             <label>Age</label>
+             <input type="text" name = "age" value = ""><br>
+       </div><br> 
        <div>
        <?php if ($update == true): ?>
 	<button class="btn" type="submit" name="update" style="background: #556B2F;" >update</button>
