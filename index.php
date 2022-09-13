@@ -52,10 +52,12 @@
 		if ($n = mysqli_fetch_array($record) ) {
 			$name = $n['name'];
 			$address = $n['address'];
+            $salary = $n['salary'];
+            $age = $n['age'];
 		}
 	}
 ?>
-<?php $results = mysqli_query($db, "SELECT * FROM info");?>
+<?php $results = mysqli_query($db, "SELECT * FROM info ORDER BY salary");?>
 <table>
 	<thead>
 		<tr>
@@ -81,7 +83,7 @@
         </tr>
     <?php } ?>
 </table>
-    <form method= "post">
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method= "post">
         <div>
         <input type="hidden" name="id" value="<?php echo $id; ?>"><br>
         </div>
@@ -95,11 +97,11 @@
        </div><br>
        <div>
              <label>Salary</label>
-             <input type="text" name = "salary" value = ""><br>
+             <input type="text" name = "salary" value = "<?php echo $salary?>"><br>
        </div><br>
        <div>
              <label>Age</label>
-             <input type="text" name = "age" value = ""><br>
+             <input type="text" name = "age" value = "<?php echo $age?>"><br>
        </div><br> 
        <div>
        <?php if ($update == true): ?>
