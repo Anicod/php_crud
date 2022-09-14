@@ -55,9 +55,25 @@
             $salary = $n['salary'];
             $age = $n['age'];
 		}
-	}
+	} 
 ?>
-<?php $results = mysqli_query($db, "SELECT * FROM info ORDER BY salary");?>
+    
+<?php
+if(isset($_POST['search'])){
+    $name = $_POST['keyword']; 
+    $searchResult = mysqli_query($db, "SELECT * FROM info WHERE name like '%$name%'");
+    if(mysqli_num_rows($searchResult)>0 ){
+        $results = $searchResult;
+    }
+    else{
+        echo "<h3> no result found</h3>";
+        $results = mysqli_query($db, "SELECT * FROM info ORDER BY salary");
+    }
+  }
+else{
+$results = mysqli_query($db, "SELECT * FROM info ORDER BY salary");
+}
+?>
 <table>
 	<thead>
 		<tr>
@@ -83,7 +99,7 @@
         </tr>
     <?php } ?>
 </table>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method= "post">
+    <form method= "post">
         <div>
         <input type="hidden" name="id" value="<?php echo $id; ?>"><br>
         </div>
@@ -109,6 +125,10 @@
     <?php else: ?>
 	<button class="btn" type="submit" name="save" >Save</button>
     <?php endif ?>
+       </div>
+       <div>
+       <input type="text" name="keyword">
+       <input type="submit" name="search" value="Search">
        </div>
     </form>
 </body>
