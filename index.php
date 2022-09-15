@@ -23,9 +23,9 @@
             font-weight:bold;
         }
         button{
-            width:100px;
+            width:200px;
             background-color:blue;
-            font-size:30px;
+            font-size:10px;
             padding: 5px;
             font-weight:bold;
             cursor: pointer;
@@ -66,7 +66,7 @@
 ?>
     
 <?php
-if(isset($_POST['sort'])){
+if(isset($_POST['sortinc'])){
   $results = mysqli_query($db, "SELECT * FROM info ORDER BY salary"); 
 }
 elseif(isset($_POST['search'])){
@@ -75,10 +75,14 @@ elseif(isset($_POST['search'])){
     if(mysqli_num_rows($searchResult)>0 ){
         $results = $searchResult;
     }
+    
     else{
         echo "<h3> no result found</h3>";
         $results = mysqli_query($db, "SELECT * FROM info");
     }
+  }
+  elseif(isset($_POST['sortdec'])){
+    $results = mysqli_query($db, "SELECT * FROM info ORDER BY salary DESC"); 
   }
 else{
 $results = mysqli_query($db, "SELECT * FROM info");
@@ -135,7 +139,8 @@ $results = mysqli_query($db, "SELECT * FROM info");
     <?php else: ?>
 	<button class="btn" type="submit" name="save" >Save</button>
     <?php endif ?>
-    <button class="btn" type="submit" name="sort" >Sort</button>
+    <button class="btn" type="submit" name="sortinc" >Salary increasing way</button>
+    <button class="btn" type="submit" name="sortdec" >Salary decreasing way</button>
        </div>
       
     </form>

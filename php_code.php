@@ -13,7 +13,7 @@ if (isset($_POST['save'])) {
 	$name = $_POST['name']; 
 	$query = mysqli_query($db,  "SELECT * FROM info WHERE name = '$name'");
 	if(mysqli_num_rows($query)>0){
-		echo "already exsist";
+		echo "<h1>User exsist</h1>";
 	}
 	else{
 	$name = $_POST['name']; 
