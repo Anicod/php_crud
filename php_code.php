@@ -11,12 +11,19 @@ $age = 0;
 $update = false;
 if (isset($_POST['save'])) {
 	$name = $_POST['name']; 
+	$query = mysqli_query($db,  "SELECT * FROM info WHERE name = '$name'");
+	if(mysqli_num_rows($query)>0){
+		echo "already exsist";
+	}
+	else{
+	$name = $_POST['name']; 
     $address = $_POST['address'];
 	$salary = $_POST['salary'];
 	$age = (int)$_POST['age'];
     mysqli_query($db, "INSERT INTO info (name, address, salary, age) VALUES ('$name', '$address', $salary, $age )"); 
     $_SESSION['message'] = "Address saved"; 
     header('location: index.php');
+	}
 }
 if (isset($_POST['update'])) {
 	$id = $_POST['id'];

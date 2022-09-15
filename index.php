@@ -10,7 +10,8 @@
             background-color:grey;
             font-size:25px;
             font-weight:bold;
-           width:40%;
+            width:98%;
+           margin-left:20px;
         }
         input{
             width:300px;
@@ -42,6 +43,12 @@
     </style>
 </head>
 <body>
+    <form method="post">
+    <div>
+       <input type="text" name="keyword">
+       <input type="submit" name="search" value="Search">
+       </div>
+    </form>
 <?php  include('php_code.php'); ?>
 <?php 
 	if (isset($_GET['edit'])) {
@@ -59,7 +66,10 @@
 ?>
     
 <?php
-if(isset($_POST['search'])){
+if(isset($_POST['sort'])){
+  $results = mysqli_query($db, "SELECT * FROM info ORDER BY salary"); 
+}
+elseif(isset($_POST['search'])){
     $name = $_POST['keyword']; 
     $searchResult = mysqli_query($db, "SELECT * FROM info WHERE name like '%$name%'");
     if(mysqli_num_rows($searchResult)>0 ){
@@ -67,21 +77,21 @@ if(isset($_POST['search'])){
     }
     else{
         echo "<h3> no result found</h3>";
-        $results = mysqli_query($db, "SELECT * FROM info ORDER BY salary");
+        $results = mysqli_query($db, "SELECT * FROM info");
     }
   }
 else{
-$results = mysqli_query($db, "SELECT * FROM info ORDER BY salary");
+$results = mysqli_query($db, "SELECT * FROM info");
 }
 ?>
 <table>
 	<thead>
 		<tr>
-			<th>Name</th>
-			<th>Address</th>
-            <th>Salary</th>
-            <th>Age</th>
-			<th colspan="2">Action</th>
+			<th class="tble">Name</th>
+			<th class="tble">Address</th>
+            <th class="tble">Salary</th>
+            <th class="tble">Age</th>
+			<th colspan="2" class="tble">Action</th>
 		</tr>
 	</thead>
     <?php while ($row = mysqli_fetch_array($results)) { ?>
@@ -125,11 +135,9 @@ $results = mysqli_query($db, "SELECT * FROM info ORDER BY salary");
     <?php else: ?>
 	<button class="btn" type="submit" name="save" >Save</button>
     <?php endif ?>
+    <button class="btn" type="submit" name="sort" >Sort</button>
        </div>
-       <div>
-       <input type="text" name="keyword">
-       <input type="submit" name="search" value="Search">
-       </div>
+      
     </form>
 </body>
 </html>
